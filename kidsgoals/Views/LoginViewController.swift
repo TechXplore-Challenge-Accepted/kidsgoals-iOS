@@ -21,6 +21,12 @@ class LoginViewController: UIViewController {
     private var newUserButton = CustomButton(title: "New User? Create Account.", fontSize: .med)
     private var forgotPasswordButton = CustomButton(title: "Forgot Password?", fontSize: .small)
     
+    private let roleSegmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl(items: ["Parent", "Child"])
+        segmentedControl.selectedSegmentIndex = 0
+        return segmentedControl
+    }()
+    
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -33,12 +39,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
-
     }
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
         setupHeader()
+        setupRoleSegmentedControl()
         setupUsernameField()
         setupPasswordField()
         setupSignInButton()
@@ -55,7 +61,17 @@ class LoginViewController: UIViewController {
             header.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             header.view.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+    }
+    
+    private func setupRoleSegmentedControl() {
+        view.addSubview(roleSegmentedControl)
+        roleSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
+        NSLayoutConstraint.activate([
+            roleSegmentedControl.topAnchor.constraint(equalTo: header.view.bottomAnchor, constant: 20),
+            roleSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            roleSegmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
+        ])
     }
     
     private func setupUsernameField() {
@@ -63,7 +79,7 @@ class LoginViewController: UIViewController {
         usernameField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            usernameField.topAnchor.constraint(equalTo: header.view.bottomAnchor, constant: 20),
+            usernameField.topAnchor.constraint(equalTo: roleSegmentedControl.bottomAnchor, constant: 20),
             usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
             usernameField.heightAnchor.constraint(equalToConstant: 40)
@@ -124,24 +140,9 @@ class LoginViewController: UIViewController {
         newUserButton.addAction(UIAction { [weak self] _ in
             self?.didTapNewUser()
         }, for: .touchUpInside)
-
+        
+        roleSegmentedControl.addTarget(self, action: #selector(roleSegmentChanged(_:)), for: .valueChanged)
     }
-    
-//    @objc private func loginButtonTapped() {
-//        guard let username = usernameTextField.text, let password = passwordTextField.text else { return }
-//        let (success, isParent) = viewModel.login(username: username, password: password)
-//        if success {
-//            let nextViewController: UIViewController
-//            if isParent {
-//                nextViewController = ParentViewController(viewModel: viewModel, username: username)
-//            } else {
-//                nextViewController = ChildViewController(viewModel: viewModel, username: username)
-//            }
-//            navigationController?.pushViewController(nextViewController, animated: true)
-//        } else {
-//            // Show error message
-//        }
-//    }
     
     private func didTapNewUser() {
         let vc = RegisterViewController()
@@ -149,11 +150,31 @@ class LoginViewController: UIViewController {
     }
     
     private func didTapSignIn() {
-        let vc = ParentViewController(viewModel: MainViewModel(), parent: Parent(username: "exampleParent", password: "password", email: "parent@example.com", name: "John Doe", female: false, personalID: "123456", children: []))
-        self.navigationController?.pushViewController(vc, animated: true)
+        guard let username = usernameField.text, let password = passwordField.text else {
+            // Show error message for missing username or password
+            return
+        }
+        
+        // Determine selected role
+        let isParent = roleSegmentedControl.selectedSegmentIndex == 0
+        
+        // Perform login check
+     //   let success = viewModel.login(username: username, password: password, isParent: isParent)
+        
+      
+            if isParent {
+                // Navigate to parent view controller
+                let parentVC = ParentViewController(viewModel: viewModel, parent: Parent(username: username, password: password, email: "", name: "", female: false, personalID: "", children: []))
+                self.navigationController?.pushViewController(parentVC, animated: true)
+            } else {
+                // Navigate to child view controller
+                let childVC = ChildViewController(viewModel: viewModel)
+                self.navigationController?.pushViewController(childVC, animated: true)
+            }
+        
     }
     
-
-    
+    @objc private func roleSegmentChanged(_ sender: UISegmentedControl) {
+        // Update UI or perform actions based on selected segment (if needed)
+    }
 }
-

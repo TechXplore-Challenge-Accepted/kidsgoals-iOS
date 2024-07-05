@@ -20,7 +20,7 @@ class MainViewModel {
         getData()
     }
     
-    func getData() {
+    private func getData() {
         let urlString = "https://mocki.io/v1/5f5113c1-7506-4208-9f85-be4598468680"
         NetworkService().getData(urlString: urlString) { [weak self] (result: Result<ParentResponse, Error>) in
             switch result {
@@ -32,6 +32,14 @@ class MainViewModel {
                 print("Failed to fetch data:", error.localizedDescription)
             }
         }
+    }
+    
+    func completeTask(at indexPath: IndexPath) {
+        guard var child = parents.first?.children.first else { return }
+        var task = child.tasks[indexPath.row]
+        task.done.toggle()
+        child.tasks[indexPath.row] = task
+        parents[0].children[0] = child
     }
     
 //    func login(username: String, password: String) -> (Bool, Bool) {

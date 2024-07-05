@@ -11,7 +11,7 @@ class CustomTextField: UITextField {
     
     enum CustomTextFieldType {
         case username
-        case email
+        case personalID
         case password
     }
     
@@ -34,10 +34,9 @@ class CustomTextField: UITextField {
         switch fieldType {
         case .username:
             self.placeholder = "Username"
-        case .email:
-            self.placeholder = "Email Address"
-            self.keyboardType = .emailAddress
-            self.textContentType = .emailAddress
+        case .personalID:
+            self.placeholder = "PersonalID"
+            self.keyboardType = .namePhonePad
             
         case .password:
             self.placeholder = "Password"

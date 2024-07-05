@@ -9,22 +9,25 @@ import UIKit
 
 class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let viewModel: MainViewModel
+    
     private var parentModel: Parent
     
     private var selectedChildIndex: Int? = nil
     
     private let tasksTableView: UITableView = {
         let tableView = UITableView()
+        tableView.separatorStyle = .none
         tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: TasksTableViewCell.identifier)
+        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         return tableView
     }()
     
     private let childButton = CustomButton(title: "Add Child Account", hasBackground: true, fontSize: .big)
+    
     private let addTaskButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Add Task", for: .normal)
         button.isHidden = true
-        button.addTarget(self, action: #selector(addTaskButtonTapped), for: .touchUpInside)
         return button
     }()
     private let childNameLabel: UILabel = {
@@ -50,6 +53,7 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         setupUI()
         childButton.addTarget(self, action: #selector(addChildButtonTapped), for: .touchUpInside)
+        addTaskButton.addTarget(self, action: #selector(addTaskButtonTapped), for: .touchUpInside)
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
     }
@@ -69,6 +73,8 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
         NSLayoutConstraint.activate([
             childButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             childButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            childButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            childButton.heightAnchor.constraint(equalToConstant: 40),
             
             childNameLabel.topAnchor.constraint(equalTo: childButton.bottomAnchor, constant: 20),
             childNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -129,7 +135,7 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private func updateUIForSelectedChild() {
         guard let selectedChildIndex = selectedChildIndex else { return }
         let selectedChild = parentModel.children[selectedChildIndex]
-        childNameLabel.text = "Child: \(selectedChild.name)"
+        childNameLabel.text = "Name: \(selectedChild.name)"
         addTaskButton.isHidden = false
         tasksTableView.reloadData()
     }
@@ -219,5 +225,15 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.taskTitle.text = task.title
         cell.taskDescription.text = task.description
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.contentView.translatesAutoresizingMaskIntoConstraints = false
+        cell.contentView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
+        cell.contentView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }

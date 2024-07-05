@@ -19,7 +19,9 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
     private let tasksTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: TasksTableViewCell.identifier)
+        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         return tableView
     }()
     
@@ -36,8 +38,7 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         viewModel.didLoad()
         setupUI()
-        bankCardView.setAmount(20)
-        reloadData()
+        bindViewModel()
     }
     
     private func setupUI() {
@@ -60,19 +61,20 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
-        
     }
     
-    private func reloadData() {
+    private func bindViewModel() {
         viewModel.dataUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.tasksTableView.reloadData()
+                if let child = self?.viewModel.parents.first?.children.first {
+                    self?.bankCardView.setAmount(child.cardBalance)
+                }
             }
         }
     }
     
     // MARK: - TableView DataSource and Delegate
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let child = viewModel.parents.first?.children.first else {
             return 0
@@ -86,10 +88,17 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return UITableViewCell()
         }
         
-        // Configure cell with task data
         cell.taskTitle.text = task.title
         cell.taskDescription.text = task.description
         
+        cell.completeButtonTapped = { [weak self] in
+            self?.viewModel.completeTask(at: indexPath)
+        }
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }

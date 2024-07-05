@@ -121,7 +121,6 @@
 				6F788ABF2C36809D00D7AD15 /* RegisterViewController.swift */,
 				6F788AB42C367CB000D7AD15 /* ParentViewController.swift */,
 				6F788AB62C367CEA00D7AD15 /* ChildViewController.swift */,
-				6F788AC32C36ABEC00D7AD15 /* TasksTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -145,6 +144,7 @@
 		6F788AB82C367E8700D7AD15 /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				6F788AC32C36ABEC00D7AD15 /* TasksTableViewCell.swift */,
 				6F788AB92C367E9F00D7AD15 /* AuthHeaderView.swift */,
 				6F788ABB2C367F5000D7AD15 /* CustomButton.swift */,
 				6F788ABD2C367F6D00D7AD15 /* CustomTextField.swift */,

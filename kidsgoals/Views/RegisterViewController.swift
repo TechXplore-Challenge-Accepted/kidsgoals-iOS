@@ -14,7 +14,7 @@ class RegisterViewController: UIViewController {
     private var header = UIHostingController(rootView: AuthHeaderView(title: "Sign Up", description: "Create your account"))
     
     private let usernameField = CustomTextField(fieldType: .username)
-    private let emailField = CustomTextField(fieldType: .email)
+    private let personalIDField = CustomTextField(fieldType: .personalID)
     private let passwordField = CustomTextField(fieldType: .password)
     
     private let signUpButton = CustomButton(title: "Sign Up", hasBackground: true, fontSize: .big)
@@ -70,14 +70,14 @@ class RegisterViewController: UIViewController {
     }
     
     private func setupEmailField() {
-        view.addSubview(emailField)
-        emailField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(personalIDField)
+        personalIDField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 22),
-            emailField.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
-            emailField.heightAnchor.constraint(equalToConstant: 40),
-            emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
+            personalIDField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 22),
+            personalIDField.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
+            personalIDField.heightAnchor.constraint(equalToConstant: 40),
+            personalIDField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
         ])
     }
     
@@ -86,7 +86,7 @@ class RegisterViewController: UIViewController {
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 22),
+            passwordField.topAnchor.constraint(equalTo: personalIDField.bottomAnchor, constant: 22),
             passwordField.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
             passwordField.heightAnchor.constraint(equalToConstant: 40),
             passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)

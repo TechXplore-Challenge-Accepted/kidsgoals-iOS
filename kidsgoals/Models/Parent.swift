@@ -8,33 +8,33 @@
 import Foundation
 
 struct ParentResponse: Codable {
-    let parent: Parent
+    var parent: Parent
 }
 
 struct Parent: Codable {
-    let username, password, email, name: String
-    let female: Bool
-    let personalID: String
+    var username, password, email, name: String
+    var female: Bool
+    var personalID: String
     var children: [Child]
 }
 
 struct Child: Codable {
-    let username, password, name: String
-    let female: Bool
-    let personalID: String
-    let cardBalance: Int
+    var username, password, name: String
+    var female: Bool
+    var personalID: String
+    var cardBalance: Int
     var tasks: [Task]
-    let goals: [Goal]
+    var goals: [Goal]
 }
 
 struct Goal: Codable {
-    let title: String
-    let taskQuantity: Int
-    let inProgress, done: Bool
+    var title: String
+    var taskQuantity: Int
+    var inProgress, done: Bool
 }
 
 struct Task: Codable {
-    let title, description, comment: String
-    let cost: Int
-    let done: Bool
+    var title, description, comment: String
+    var cost: Int
+    var done: Bool
 }
