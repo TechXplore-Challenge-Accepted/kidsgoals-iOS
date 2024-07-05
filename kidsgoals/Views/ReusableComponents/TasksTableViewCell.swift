@@ -30,6 +30,15 @@ class TasksTableViewCell: UITableViewCell {
         return label
     }()
     
+    var taskCost: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .red
+        return label
+    }()
+    
     private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -64,6 +73,7 @@ class TasksTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         containerView.addSubview(taskTitle)
         containerView.addSubview(taskDescription)
+        containerView.addSubview(taskCost)
         containerView.addSubview(completeButton)
         
         NSLayoutConstraint.activate([
@@ -80,9 +90,13 @@ class TasksTableViewCell: UITableViewCell {
             taskDescription.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             taskDescription.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
             
-            completeButton.topAnchor.constraint(equalTo: taskDescription.bottomAnchor, constant: 8),
+            taskCost.topAnchor.constraint(equalTo: taskDescription.bottomAnchor, constant: 8),
+            taskCost.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            taskCost.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            
+            completeButton.topAnchor.constraint(equalTo: taskCost.bottomAnchor, constant: 6),
             completeButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            completeButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8)
+            completeButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -6)
         ])
     }
     

@@ -75,6 +75,7 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     // MARK: - TableView DataSource and Delegate
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let child = viewModel.parents.first?.children.first else {
             return 0
@@ -90,6 +91,7 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.taskTitle.text = task.title
         cell.taskDescription.text = task.description
+        cell.taskCost.text = "Cost: \(task.cost)" // Set the task cost
         
         cell.completeButtonTapped = { [weak self] in
             self?.viewModel.completeTask(at: indexPath)
@@ -99,6 +101,6 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 120
     }
 }

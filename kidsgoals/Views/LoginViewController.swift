@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     
     private var header = UIHostingController(rootView: AuthHeaderView(title: "Sign In", description: "Sign in to your account"))
     
-    private var usernameField = CustomTextField(fieldType: .username)
+    private var emailField = CustomTextField(fieldType: .email)
     private var passwordField = CustomTextField(fieldType: .password)
     
     private var signInButton = CustomButton(title: "Sign In", hasBackground: true, fontSize: .big)
@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupHeader()
         setupRoleSegmentedControl()
-        setupUsernameField()
+        setupEmailField()
         setupPasswordField()
         setupSignInButton()
         setupNewUserButton()
@@ -74,15 +74,15 @@ class LoginViewController: UIViewController {
         ])
     }
     
-    private func setupUsernameField() {
-        view.addSubview(usernameField)
-        usernameField.translatesAutoresizingMaskIntoConstraints = false
+    private func setupEmailField() {
+        view.addSubview(emailField)
+        emailField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            usernameField.topAnchor.constraint(equalTo: roleSegmentedControl.bottomAnchor, constant: 20),
-            usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
-            usernameField.heightAnchor.constraint(equalToConstant: 40)
+            emailField.topAnchor.constraint(equalTo: roleSegmentedControl.bottomAnchor, constant: 20),
+            emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            emailField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -91,7 +91,7 @@ class LoginViewController: UIViewController {
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 20),
+            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
             passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
             passwordField.heightAnchor.constraint(equalToConstant: 40)
@@ -150,7 +150,7 @@ class LoginViewController: UIViewController {
     }
     
     private func didTapSignIn() {
-        guard let username = usernameField.text, let password = passwordField.text else {
+        guard let username = emailField.text, let password = passwordField.text else {
             // Show error message for missing username or password
             return
         }
