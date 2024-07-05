@@ -31,7 +31,7 @@ class RegisterViewController: UIViewController {
     }
     
     
-    // MARK: - UI Setup
+    // MARK: - Functions
     private func setupUI() {
         view.backgroundColor = .systemBackground
         

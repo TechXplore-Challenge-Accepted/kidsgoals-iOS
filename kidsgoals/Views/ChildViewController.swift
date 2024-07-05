@@ -8,6 +8,7 @@
 import UIKit
 
 class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    //MARK: - Properties
     private let viewModel: MainViewModel
     
     private let bankCardView: BankCardView = {
@@ -25,6 +26,7 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return tableView
     }()
     
+    //MARK: - Lifecycle
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -41,6 +43,7 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
         bindViewModel()
     }
     
+    //MARK: - Functions
     private func setupUI() {
         view.backgroundColor = .systemBackground
         
@@ -74,8 +77,7 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    // MARK: - TableView DataSource and Delegate
-    
+    // MARK: - TableView Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let child = viewModel.parents.first?.children.first else {
             return 0
@@ -92,10 +94,6 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.taskTitle.text = task.title
         cell.taskDescription.text = task.description
         cell.taskCost.text = "Cost: \(task.cost) GEL"
-        
-        cell.completeButtonTapped = { [weak self] in
-            self?.viewModel.completeTask(at: indexPath)
-        }
         
         return cell
     }

@@ -205,8 +205,7 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // }
     }
     
-    // MARK: - TableView DataSource and Delegate
-    
+    // MARK: - TableView Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let selectedChildIndex = selectedChildIndex else { return 0 }
         return parentModel.children[selectedChildIndex].tasks.count
@@ -232,4 +231,5 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
+    
 }

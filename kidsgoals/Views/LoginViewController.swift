@@ -27,6 +27,7 @@ class LoginViewController: UIViewController {
         return segmentedControl
     }()
     
+    //MARK: - Lifecycle
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -41,6 +42,7 @@ class LoginViewController: UIViewController {
         self.setupUI()
     }
     
+    //MARK: - Functions
     private func setupUI() {
         view.backgroundColor = .systemBackground
         setupHeader()
@@ -52,11 +54,11 @@ class LoginViewController: UIViewController {
         setupForgotPasswordButton()
         setupActions()
     }
-
+    
     private func setupHeader() {
         view.addSubview(header.view)
         header.view.translatesAutoresizingMaskIntoConstraints = false
- 
+        
         NSLayoutConstraint.activate([
             header.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             header.view.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -155,18 +157,15 @@ class LoginViewController: UIViewController {
         
         let isParent = roleSegmentedControl.selectedSegmentIndex == 0
         
-        
-      
-            if isParent {
-                // Navigate to parent view controller
-                let parentVC = ParentViewController(viewModel: viewModel, parent: Parent(username: username, password: password, email: "", name: "", female: false, personalID: "", children: []))
-                self.navigationController?.pushViewController(parentVC, animated: true)
-            } else {
-                // Navigate to child view controller
-                let childVC = ChildViewController(viewModel: viewModel)
-                self.navigationController?.pushViewController(childVC, animated: true)
-            }
-        
+        if isParent {
+            // Navigate to parent view controller
+            let parentVC = ParentViewController(viewModel: viewModel, parent: Parent(username: username, password: password, email: "", name: "", female: false, personalID: "", children: []))
+            self.navigationController?.pushViewController(parentVC, animated: true)
+        } else {
+            // Navigate to child view controller
+            let childVC = ChildViewController(viewModel: viewModel)
+            self.navigationController?.pushViewController(childVC, animated: true)
+        }
     }
     
 }

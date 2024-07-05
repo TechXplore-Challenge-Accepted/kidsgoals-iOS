@@ -8,6 +8,7 @@
 import UIKit
 
 class TasksTableViewCell: UITableViewCell {
+    //MARK: - Properties
     static let identifier = "TasksTableViewCell"
     
     var taskTitle: UILabel = {
@@ -56,18 +57,17 @@ class TasksTableViewCell: UITableViewCell {
         return button
     }()
     
-    var completeButtonTapped: (() -> Void)?
-    
+    //MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
-        completeButton.addTarget(self, action: #selector(didTapCompleteButton), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Functions
     func setupUI() {
         backgroundColor = .clear
         contentView.addSubview(containerView)
@@ -100,7 +100,4 @@ class TasksTableViewCell: UITableViewCell {
         ])
     }
     
-    @objc func didTapCompleteButton() {
-        completeButtonTapped?()
-    }
 }

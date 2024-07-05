@@ -10,7 +10,6 @@ import UIKit
 class BankCardView: UIView {
     
     // MARK: - Properties
-    
     private let amountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,8 +30,7 @@ class BankCardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup UI
-    
+    // MARK: - Functions
     private func setupUI() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [UIColor.systemBlue.cgColor, UIColor.blue.cgColor]
@@ -52,25 +50,19 @@ class BankCardView: UIView {
         layer.shadowRadius = 4
     }
     
-    // MARK: - Public Methods
-    
     func setAmount(_ amount: Int) {
         amountLabel.text = "\(amount) GEL"
     }
     
-    // MARK: - Layout
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        // Update gradient layer frame
         if let gradientLayer = layer.sublayers?.first as? CAGradientLayer {
             gradientLayer.frame = bounds
             gradientLayer.cornerRadius = 15
             gradientLayer.masksToBounds = true // Ensures corner radius is applied
         }
         
-        // Apply corner radius and shadow to self
         layer.cornerRadius = 15
         layer.masksToBounds = false
     }
