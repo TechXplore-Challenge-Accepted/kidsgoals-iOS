@@ -115,7 +115,11 @@ class RegisterViewController: UIViewController {
     
     // MARK: - Selectors
     @objc func didTapSignUp() {
-        print("DEBUG PRINT:", "didTapSignUp")
+        guard let username = emailField.text, let password = passwordField.text else {
+            return
+        }
+        let parentVC = ParentViewController(viewModel: MainViewModel(), parent: Parent(username: username, password: password, email: "", name: "", female: false, personalID: "", children: []))
+        self.navigationController?.pushViewController(parentVC, animated: true)
     }
     
     @objc private func didTapSignIn() {

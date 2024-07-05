@@ -21,7 +21,7 @@ class MainViewModel {
     }
     
     private func getData() {
-        let urlString = "https://mocki.io/v1/5f5113c1-7506-4208-9f85-be4598468680"
+        let urlString = "https://mocki.io/v1/359ddc67-0a88-44a8-9319-5ca8002a909a"
         NetworkService().getData(urlString: urlString) { [weak self] (result: Result<ParentResponse, Error>) in
             switch result {
             case .success(let parentResponse):

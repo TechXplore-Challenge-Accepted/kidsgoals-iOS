@@ -141,7 +141,6 @@ class LoginViewController: UIViewController {
             self?.didTapNewUser()
         }, for: .touchUpInside)
         
-        roleSegmentedControl.addTarget(self, action: #selector(roleSegmentChanged(_:)), for: .valueChanged)
     }
     
     private func didTapNewUser() {
@@ -151,15 +150,11 @@ class LoginViewController: UIViewController {
     
     private func didTapSignIn() {
         guard let username = emailField.text, let password = passwordField.text else {
-            // Show error message for missing username or password
             return
         }
         
-        // Determine selected role
         let isParent = roleSegmentedControl.selectedSegmentIndex == 0
         
-        // Perform login check
-     //   let success = viewModel.login(username: username, password: password, isParent: isParent)
         
       
             if isParent {
@@ -174,7 +169,4 @@ class LoginViewController: UIViewController {
         
     }
     
-    @objc private func roleSegmentChanged(_ sender: UISegmentedControl) {
-        // Update UI or perform actions based on selected segment (if needed)
-    }
 }

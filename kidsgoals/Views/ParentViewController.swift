@@ -93,10 +93,10 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @objc private func addChildButtonTapped() {
         let childAlert = UIAlertController(title: "Add Child Information", message: nil, preferredStyle: .alert)
         childAlert.addTextField { textField in
-            textField.placeholder = "Child's Name"
+            textField.placeholder = "Child's Name and Lastname"
         }
         childAlert.addTextField { textField in
-            textField.placeholder = "Child's Username"
+            textField.placeholder = "Child's Email"
         }
         childAlert.addTextField { textField in
             textField.placeholder = "Child's Password"
@@ -112,7 +112,7 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let password = childAlert.textFields?[2].text ?? ""
             let personalID = childAlert.textFields?[3].text ?? ""
             
-            // Create new child
+            // Create new child acc
             let newChild = Child(username: username, password: password, name: name, female: false, personalID: personalID, cardBalance: 0, tasks: [], goals: [])
             
             // Update local model
@@ -122,7 +122,7 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // Update UI
             self.updateUIForSelectedChild()
             
-            // Push data to database (replace with actual database call)
+            // Push თუ დათაბეისი გვექნება
             self.pushChildToDatabase(child: newChild)
         }
         
@@ -141,10 +141,8 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     private func pushChildToDatabase(child: Child) {
-        // Replace this with actual database integration code
+        // თუ ბექენდი გვექნება
         print("Pushing child data to database...")
-        // Example code: You would implement your database integration logic here
-        // For example, using your NetworkService to push data
         // NetworkService().postData(urlString: urlString, data: child) { result in
         //    switch result {
         //    case .success(let response):
@@ -184,7 +182,7 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.parentModel.children[selectedChildIndex].tasks.append(newTask)
             self.tasksTableView.reloadData()
             
-            // Push data to database (replace with actual database call)
+            // თუ ბექენდი გვექნება
             self.pushTaskToDatabase(task: newTask)
         }
         
@@ -195,10 +193,8 @@ class ParentViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     private func pushTaskToDatabase(task: Task) {
-        // Replace this with actual database integration code
+        // თუ ბექენდი გვექნება
         print("Pushing task data to database...")
-        // Example code: You would implement your database integration logic here
-        // For example, using your NetworkService to push data
         // NetworkService().postData(urlString: urlString, data: task) { result in
         //    switch result {
         //    case .success(let response):

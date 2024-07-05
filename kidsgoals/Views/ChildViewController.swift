@@ -91,7 +91,7 @@ class ChildViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.taskTitle.text = task.title
         cell.taskDescription.text = task.description
-        cell.taskCost.text = "Cost: \(task.cost)" // Set the task cost
+        cell.taskCost.text = "Cost: \(task.cost) GEL"
         
         cell.completeButtonTapped = { [weak self] in
             self?.viewModel.completeTask(at: indexPath)
